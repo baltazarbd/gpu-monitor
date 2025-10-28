@@ -10,13 +10,13 @@
 GPU_DATA=$(sudo powermetrics --samplers gpu_power -n 1 -i 1000 2>/dev/null)
 
 # Извлекаем активность GPU
-GPU_ACTIVE=$(echo "$GPU_DATA" | grep "GPU HW active residency:" | head -1 | sed -E 's/.*: ([0-9.]+)%.*/\1/')
+GPU_ACTIVE=$(echo "$GPU_DATA" | grep "GPU HW active residency:" | head -1 | awk '{print $5}' | sed 's/%//')
 
 # Извлекаем частоту
-GPU_FREQ=$(echo "$GPU_DATA" | grep "GPU HW active frequency:" | head -1 | sed -E 's/.*: ([0-9]+) MHz.*/\1/')
+GPU_FREQ=$(echo "$GPU_DATA" | grep "GPU HW active frequency:" | head -1 | awk '{print $5}')
 
 # Извлекаем потребление энергии
-GPU_POWER=$(echo "$GPU_DATA" | grep "GPU Power:" | head -1 | sed -E 's/.*: ([0-9]+) mW.*/\1/')
+GPU_POWER=$(echo "$GPU_DATA" | grep "GPU Power:" | head -1 | awk '{print $3}' | sed 's/ mW//')
 
 # Если данные не получены, показываем заглушку
 if [ -z "$GPU_ACTIVE" ]; then
