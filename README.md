@@ -35,19 +35,40 @@ Color changes based on load:
 
 ## 🚀 Quick Installation
 
-### Step 1: Install SwiftBar
+### Automatic Installation (Recommended)
+
+Run the installation script:
+
+```bash
+git clone https://github.com/baltazarbd/gpu-monitor.git
+cd gpu-monitor
+./install.sh
+```
+
+The script will automatically:
+- ✅ Install SwiftBar (if needed)
+- ✅ Set up the plugin folder
+- ✅ Install GPU Monitor plugin
+- ✅ Configure sudo permissions
+- ✅ Set up auto-launch (optional)
+
+### Manual Installation
+
+If you prefer to install manually:
+
+#### Step 1: Install SwiftBar
 
 ```bash
 brew install --cask swiftbar
 ```
 
-### Step 2: Create plugins folder
+#### Step 2: Create plugins folder
 
 ```bash
 mkdir -p ~/swiftbar-plugins
 ```
 
-### Step 3: Copy the plugin
+#### Step 3: Copy the plugin
 
 Copy `gpu-monitor.2s.sh` to `~/swiftbar-plugins/`:
 
@@ -56,7 +77,7 @@ cp gpu-monitor.2s.sh ~/swiftbar-plugins/
 chmod +x ~/swiftbar-plugins/gpu-monitor.2s.sh
 ```
 
-### Step 4: Configure sudo permissions
+#### Step 4: Configure sudo permissions
 
 Add rule to run `powermetrics` without password:
 
@@ -65,7 +86,7 @@ echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/powermetrics" | sudo tee /etc/sudoers.d
 sudo chmod 440 /etc/sudoers.d/powermetrics
 ```
 
-### Step 5: Configure SwiftBar
+#### Step 5: Configure SwiftBar
 
 1. Launch SwiftBar
 2. Click on SwiftBar icon in menu bar
@@ -79,6 +100,7 @@ Done! 🎉 GPU Monitor will appear in your menu bar.
 ```
 gpu-monitor/
 ├── README.md                    # This file
+├── install.sh                   # Automatic installation script
 ├── gpu-monitor.2s.sh            # Main SwiftBar plugin
 ├── docs/
 │   ├── INSTALLATION.md          # Detailed installation guide
