@@ -1,112 +1,112 @@
-# GPU Monitor для macOS
+# GPU Monitor for macOS
 
 ![macOS](https://img.shields.io/badge/macOS-10.15+-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![SwiftBar](https://img.shields.io/badge/SwiftBar-2.0+-orange)
 
-Мониторинг GPU в реальном времени прямо в строке меню macOS с красивыми иконками и цветовой индикацией нагрузки.
+Real-time GPU monitoring directly in your macOS menu bar with beautiful icons and color-coded load indicators.
 
-## 🎯 Возможности
+## 🎯 Features
 
-- 🔥 **Активность GPU** в процентах с цветовой индикацией
-- ⚡ **Частота GPU** в реальном времени (MHz)
-- ⚙️ **Потребление энергии** (Watts)
-- 🎨 **Автоматическая цветовая индикация** (зелёный/оранжевый/красный)
-- 🚀 **Автозапуск** при старте системы
-- ⏱️ **Обновление каждые 2 секунды**
+- 🔥 **GPU Activity** percentage with color indication
+- ⚡ **GPU Frequency** in real-time (MHz)
+- ⚙️ **Power Consumption** (Watts)
+- 🎨 **Automatic color indication** (green/orange/red)
+- 🚀 **Auto-launch** on system startup
+- ⏱️ **Updates every 2 seconds**
 
-## 📸 Превью
+## 📸 Preview
 
-В строке меню отображается:
+Displays in menu bar:
 ```
 🔥45% ⚡890MHz ⚙️2.1W
 ```
 
-Цвет меняется в зависимости от нагрузки:
-- 🟢 **Зелёный** - нагрузка < 50%
-- 🟠 **Оранжевый** - нагрузка 50-80%
-- 🔴 **Красный** - нагрузка > 80%
+Color changes based on load:
+- 🟢 **Green** - load < 50%
+- 🟠 **Orange** - load 50-80%
+- 🔴 **Red** - load > 80%
 
-## 📋 Требования
+## 📋 Requirements
 
-- macOS 10.15 (Catalina) или новее
+- macOS 10.15 (Catalina) or newer
 - SwiftBar 2.0+
-- Права sudo для команды `powermetrics`
+- Sudo privileges for `powermetrics` command
 
-## 🚀 Быстрая установка
+## 🚀 Quick Installation
 
-### Шаг 1: Установка SwiftBar
+### Step 1: Install SwiftBar
 
 ```bash
 brew install --cask swiftbar
 ```
 
-### Шаг 2: Создание папки плагинов
+### Step 2: Create plugins folder
 
 ```bash
 mkdir -p ~/swiftbar-plugins
 ```
 
-### Шаг 3: Копирование плагина
+### Step 3: Copy the plugin
 
-Скопируйте файл `gpu-monitor.2s.sh` в `~/swiftbar-plugins/`:
+Copy `gpu-monitor.2s.sh` to `~/swiftbar-plugins/`:
 
 ```bash
 cp gpu-monitor.2s.sh ~/swiftbar-plugins/
 chmod +x ~/swiftbar-plugins/gpu-monitor.2s.sh
 ```
 
-### Шаг 4: Настройка прав sudo
+### Step 4: Configure sudo permissions
 
-Добавьте правило для запуска `powermetrics` без пароля:
+Add rule to run `powermetrics` without password:
 
 ```bash
 echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/powermetrics" | sudo tee /etc/sudoers.d/powermetrics
 sudo chmod 440 /etc/sudoers.d/powermetrics
 ```
 
-### Шаг 5: Настройка SwiftBar
+### Step 5: Configure SwiftBar
 
-1. Запустите SwiftBar
-2. Кликните на иконку SwiftBar в строке меню
-3. Выберите **Preferences** → **Choose Plugin Folder...**
-4. Укажите путь: `~/swiftbar-plugins`
+1. Launch SwiftBar
+2. Click on SwiftBar icon in menu bar
+3. Select **Preferences** → **Choose Plugin Folder...**
+4. Specify path: `~/swiftbar-plugins`
 
-Готово! 🎉 GPU Monitor появится в строке меню.
+Done! 🎉 GPU Monitor will appear in your menu bar.
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
 gpu-monitor/
-├── README.md                    # Этот файл
-├── gpu-monitor.2s.sh            # Основной плагин SwiftBar
+├── README.md                    # This file
+├── gpu-monitor.2s.sh            # Main SwiftBar plugin
 ├── docs/
-│   ├── INSTALLATION.md          # Детальная инструкция установки
-│   └── TROUBLESHOOTING.md       # Решение проблем
+│   ├── INSTALLATION.md          # Detailed installation guide
+│   └── TROUBLESHOOTING.md       # Troubleshooting guide
 └── scripts/
-    ├── test-gpu-monitor.sh      # Скрипт тестирования
-    └── uninstall.sh             # Скрипт удаления
+    ├── test-gpu-monitor.sh      # Test script
+    └── uninstall.sh             # Uninstall script
 ```
 
-## 🔧 Настройка
+## 🔧 Configuration
 
-### Изменение интервала обновления
+### Change update interval
 
-Переименуйте файл плагина, изменив значение в имени:
+Rename the plugin file, changing the value in the name:
 
-- `gpu-monitor.1s.sh` - каждую секунду
-- `gpu-monitor.2s.sh` - каждые 2 секунды (по умолчанию)
-- `gpu-monitor.5s.sh` - каждые 5 секунд
-- `gpu-monitor.10s.sh` - каждые 10 секунд
+- `gpu-monitor.1s.sh` - every second
+- `gpu-monitor.2s.sh` - every 2 seconds (default)
+- `gpu-monitor.5s.sh` - every 5 seconds
+- `gpu-monitor.10s.sh` - every 10 seconds
 
-Пример:
+Example:
 ```bash
 mv ~/swiftbar-plugins/gpu-monitor.2s.sh ~/swiftbar-plugins/gpu-monitor.5s.sh
 ```
 
-### Автозапуск SwiftBar
+### Auto-launch SwiftBar
 
-Создайте LaunchAgent для автоматического запуска при старте системы:
+Create LaunchAgent for automatic startup:
 
 ```bash
 cat > ~/Library/LaunchAgents/com.swiftbar.app.plist << 'EOF'
@@ -129,21 +129,21 @@ EOF
 launchctl load ~/Library/LaunchAgents/com.swiftbar.app.plist
 ```
 
-## 🧪 Тестирование
+## 🧪 Testing
 
-Запустите скрипт тестирования для проверки всех компонентов:
+Run the test script to check all components:
 
 ```bash
 ./scripts/test-gpu-monitor.sh
 ```
 
-Или протестируйте плагин вручную:
+Or test the plugin manually:
 
 ```bash
 ~/swiftbar-plugins/gpu-monitor.2s.sh
 ```
 
-Должен вывести:
+Expected output:
 ```
 🔥45% ⚡890MHz ⚙️2.1W | color=green
 ---
@@ -156,94 +156,93 @@ GPU Monitor
 Refresh | refresh=true terminal=false
 ```
 
-## 🐛 Устранение проблем
+## 🐛 Troubleshooting
 
-### Проблема: Запрашивается пароль sudo
+### Issue: Sudo password is requested
 
-См. [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md#проблема-запрашивается-пароль-sudo)
+See [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md#проблема-запрашивается-пароль-sudo)
 
-### Проблема: Плагин не отображается
+### Issue: Plugin doesn't display
 
-1. Проверьте права выполнения: `chmod +x ~/swiftbar-plugins/gpu-monitor.2s.sh`
-2. Проверьте путь к папке плагинов в настройках SwiftBar
-3. Перезапустите SwiftBar
+1. Check execute permissions: `chmod +x ~/swiftbar-plugins/gpu-monitor.2s.sh`
+2. Check plugin folder path in SwiftBar preferences
+3. Restart SwiftBar
 
-### Проблема: Показывает "0%" или пустые данные
+### Issue: Shows "0%" or empty data
 
-Проверьте работу powermetrics:
+Check powermetrics operation:
 ```bash
 sudo powermetrics --samplers gpu_power -n 1 -i 1000
 ```
 
-Полный список решений: [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+Full troubleshooting guide: [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 
-## 🗑️ Удаление
+## 🗑️ Uninstallation
 
-Для полного удаления используйте скрипт:
+For complete removal, use the script:
 
 ```bash
 ./scripts/uninstall.sh
 ```
 
-Или вручную:
+Or manually:
 
 ```bash
-# Остановить автозапуск
+# Stop auto-launch
 launchctl unload ~/Library/LaunchAgents/com.swiftbar.app.plist
 rm ~/Library/LaunchAgents/com.swiftbar.app.plist
 
-# Удалить SwiftBar
+# Remove SwiftBar
 brew uninstall --cask swiftbar
 
-# Удалить плагины
+# Remove plugins
 rm -rf ~/swiftbar-plugins
 
-# Удалить права sudo
+# Remove sudo permissions
 sudo rm /etc/sudoers.d/powermetrics
 ```
 
-## 📊 Как это работает
+## 📊 How It Works
 
-Плагин использует системную утилиту `powermetrics` для получения данных о GPU:
+The plugin uses the system utility `powermetrics` to gather GPU data:
 
-1. **Сбор данных**: Каждые N секунд запускается `powermetrics --samplers gpu_power`
-2. **Парсинг**: Извлекаются метрики через `grep` и `sed`
-3. **Форматирование**: Данные форматируются с иконками и цветами
-4. **Отображение**: SwiftBar показывает результат в строке меню
+1. **Data Collection**: Every N seconds, `powermetrics --samplers gpu_power` is executed
+2. **Parsing**: Metrics are extracted using `grep` and `awk`
+3. **Formatting**: Data is formatted with icons and colors
+4. **Display**: SwiftBar shows the result in the menu bar
 
-## 🔒 Безопасность
+## 🔒 Security
 
-Скрипт требует прав sudo только для команды `powermetrics`. Это безопасно, так как:
+The script requires sudo privileges only for the `powermetrics` command. This is safe because:
 
-- Правило sudoers ограничено только одной командой
-- Не выполняется никаких операций записи
-- Только чтение метрик GPU
+- Sudoers rule is limited to only one command
+- No write operations are performed
+- Only reads GPU metrics
 
-## 🤝 Вклад в проект
+## 🤝 Contributing
 
-Принимаются pull requests! Для крупных изменений сначала откройте issue для обсуждения.
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-## 📝 Лицензия
+## 📝 License
 
-MIT License - см. файл LICENSE
+MIT License - see LICENSE file
 
-## 👨‍💻 Автор
+## 👨‍💻 Author
 
-**bprokin**
+**baltazarbd**
 
-## 🙏 Благодарности
+## 🙏 Acknowledgments
 
-- [SwiftBar](https://github.com/swiftbar/SwiftBar) - за отличный инструмент для создания menu bar приложений
-- Apple `powermetrics` - за предоставление данных о GPU
+- [SwiftBar](https://github.com/swiftbar/SwiftBar) - for the excellent menu bar application tool
+- Apple `powermetrics` - for providing GPU data
 
-## 📚 Дополнительные ресурсы
+## 📚 Additional Resources
 
-- [Документация SwiftBar](https://github.com/swiftbar/SwiftBar)
+- [SwiftBar Documentation](https://github.com/swiftbar/SwiftBar)
 - [powermetrics man page](https://www.unix.com/man-page/osx/1/powermetrics/)
-- [Детальная установка](docs/INSTALLATION.md)
-- [Решение проблем](docs/TROUBLESHOOTING.md)
+- [Detailed Installation Guide](docs/INSTALLATION.md)
+- [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
 
 ---
 
-**Примечание**: Этот плагин разработан специально для Apple Silicon (M1/M2/M3/M4) Mac, но также работает на Intel Mac с поддержкой GPU.
-
+**Note**: This plugin is designed specifically for Apple Silicon (M1/M2/M3/M4) Macs, but also works on Intel Macs with GPU support.
